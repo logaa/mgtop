@@ -1,0 +1,14 @@
+spring:
+  data:
+    elasticsearch:
+      cluster-name: logaa-elasticsearch
+      cluster-nodes: 127.0.0.1:9300
+      local: true
+      repositories:
+          enable: true
+  thymeleaf.cache: false
+  thymeleaf.mode: LEGACYHTML5
+server:
+  #contextPath: /web
+  port: 80
+
