@@ -49,7 +49,7 @@
 							<transformers>
 								<!-- <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>com.logaa.App</mainClass>
-								</transformer> -->
+								</transformer>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
 									<resource>META-INF/spring.handlers</resource>
@@ -57,7 +57,7 @@
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
 									<resource>META-INF/spring.schemas</resource>
-								</transformer>
+								</transformer> -->
 							</transformers>
 						</configuration>
 					</execution>
