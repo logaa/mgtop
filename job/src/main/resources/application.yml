@@ -26,9 +26,7 @@ spring:
       local: true
       repositories:
           enable: true
-  thymeleaf.cache: false
-  thymeleaf.mode: LEGACYHTML5
 server:
-  #contextPath: /web
-  port: 80
+  #contextPath: /job
+  port: 90
 
