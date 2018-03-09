@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jsoup.nodes.Document;
-import org.junit.runners.model.FrameworkMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.logaa.domain.enumer.FromEnum;
-import com.logaa.domain.mongo.Lives;
 import com.logaa.domain.mongo.News;
 import com.logaa.helper.MogumiaoHelper;
 import com.logaa.helper.SpiderHelper;
