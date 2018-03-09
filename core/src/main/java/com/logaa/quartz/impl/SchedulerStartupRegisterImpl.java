@@ -26,23 +26,19 @@ public class SchedulerStartupRegisterImpl implements SchedulerStartupRegister {
 	SchedulerService schedulerService;
 	
 	@Override
-	public void registerJobs(String group) {
-		logger.info("Enter SchedulerStartupRegisterImpl, register all jobs");
+	public void registerJobs(String group) { 
+		logger.info("Enter SchedulerStartupRegisterImpl, register {}", group);
 		int registerJobCount = 0;
 		List<IJobDefPo> jobDefPos = jobPersistenceSupport.findActivedJobDefPos(group);
-		if(jobDefPos != null){
-			for(IJobDefPo jobDefPo : jobDefPos){
-				if(!StringUtils.isEmpty(jobDefPo.getExpr())){
-					if(CronUtils.check(jobDefPo.getExpr())){
-						schedulerService.startJob(jobDefPo);
-						logger.info("register "+ jobDefPo.getName());
-					}else {
-						logger.warn("error expr + " + jobDefPo.getExpr());
-					}
-				}
-				registerJobCount++;
+		for(IJobDefPo jobDefPo : jobDefPos){
+			if(!StringUtils.isEmpty(jobDefPo.getExpr()) && CronUtils.check(jobDefPo.getExpr())){
+				schedulerService.startJob(jobDefPo);
+				logger.info("register "+ jobDefPo.getName());
+			}else {
+				logger.warn("error expr + " + jobDefPo.getExpr());
 			}
+			registerJobCount++;
 		}
-		logger.info("Complete SchedulerStartupRegisterImpl, register: " + registerJobCount + " Jobs");
+		logger.info("Complete SchedulerStartupRegisterImpl, register: {} Jobs", registerJobCount);
 	}
 }

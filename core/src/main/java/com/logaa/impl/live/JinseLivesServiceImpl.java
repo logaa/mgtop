@@ -40,7 +40,7 @@ public class JinseLivesServiceImpl implements JinseLivesService {
 		}
 		if(currId == null){
 			Lives live = mongoDao.findOne("from", FromEnum.JINSE.getKey(), Direction.DESC, "id", Lives.class);
-			if(live != null) currId = Integer.valueOf(live.getId());
+			if(live != null) currId = Integer.valueOf(live.getId().replaceFirst(FromEnum.JINSE.getKey(), ""));
 		}
 		if(currId == null || currId < 172) currId = 172;
 		saveJinseLives(topId + 1, currId);
@@ -57,7 +57,7 @@ public class JinseLivesServiceImpl implements JinseLivesService {
 				map.keySet().forEach(e -> {
 					List<LinkedHashMap<String, Object>> jinseLivesModels = (List<LinkedHashMap<String, Object>>) map.get(e);
 					jinseLivesModels.forEach(x -> {
-						Lives live = new Lives(x.get("id").toString(), null, null, null, 
+						Lives live = new Lives(FromEnum.JINSE.getKey() + x.get("id").toString(), null, null, null, 
 								FromEnum.JINSE.getKey(), x.get("link").toString(),
 								x.get("link_name").toString(), cTime);
 						String content = x.get("content") == null ? "" : x.get("content").toString();
@@ -67,7 +67,6 @@ public class JinseLivesServiceImpl implements JinseLivesService {
 						String time = x.get("created_at") == null ? null : x.get("created_at").toString();
 						live.setDate(String.format("%s %s", e, time));
 						mongoDao.save(live);
-						//mongoDao.save(live, "db_lives");
 						logger.info(new Gson().toJson(live));
 					});
 				});

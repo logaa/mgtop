@@ -2,8 +2,8 @@ package com.logaa.domain.mongo;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "lives")
-public class Lives {
+@Document(collection = "news")
+public class News {
 
 	private String id;
 
@@ -15,32 +15,25 @@ public class Lives {
 
 	private String from;
 
-	private String link;
-
-	private String linkName;
-
 	private Integer click = 0;
 
 	private Long cTime;
-	
+
 	/**
 	 * @param id
 	 * @param title
 	 * @param date
 	 * @param content
 	 * @param from
-	 * @param link
-	 * @param linkName
 	 * @param cTime
 	 */
-	public Lives(String id, String title, String date, String content, String from, String link, String linkName, Long cTime){
+	public News(String id, String title, String date, String content, String from, Long cTime) {
+		super();
 		this.id = id;
 		this.title = title;
 		this.date = date;
 		this.content = content;
 		this.from = from;
-		this.link = link;
-		this.linkName = linkName;
 		this.cTime = cTime;
 	}
 
@@ -84,22 +77,6 @@ public class Lives {
 		this.from = from;
 	}
 
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
-	public String getLinkName() {
-		return linkName;
-	}
-
-	public void setLinkName(String linkName) {
-		this.linkName = linkName;
-	}
-
 	public Integer getClick() {
 		return click;
 	}
@@ -115,5 +92,5 @@ public class Lives {
 	public void setcTime(Long cTime) {
 		this.cTime = cTime;
 	}
-
+	
 }

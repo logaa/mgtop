@@ -14,7 +14,7 @@ import com.logaa.quartz.entity.IJobDefPo;
 public class JobDef implements IJobDefPo{
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)	
+	@GeneratedValue()	
 	private Long id;
 	
 	private String name;

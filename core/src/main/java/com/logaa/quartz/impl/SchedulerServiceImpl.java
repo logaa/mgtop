@@ -39,8 +39,6 @@ public class SchedulerServiceImpl implements SchedulerService, InitializingBean 
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());		
 	
-	private final static String LOCK = "lock";
-	
 	@Resource
 	Scheduler scheduler;
     
@@ -49,7 +47,7 @@ public class SchedulerServiceImpl implements SchedulerService, InitializingBean 
 	
     @Override
 	public void afterPropertiesSet() throws Exception {
-    	if(!scheduler.isStarted()) scheduler.start();
+    	if(scheduler != null && !scheduler.isStarted()) scheduler.start();
 	}
 
 	public boolean startJob(String jobDefId) {
@@ -61,37 +59,30 @@ public class SchedulerServiceImpl implements SchedulerService, InitializingBean 
 	public boolean startJob(IJobDefPo jobDefPo) {
 		boolean isStart = false;
 		if(jobDefPo != null && !StringUtils.isEmpty(jobDefPo.getBean()) && CronUtils.check(jobDefPo.getExpr())){
-			synchronized (StringUtils.isEmpty(jobDefPo.getId()) ? LOCK : jobDefPo.getId()) {							
-				logger.info("Enter start Job method，name=" + jobDefPo.getName());
-				isStart = startPlan(jobDefPo.getId(), jobDefPo.getBean(), jobDefPo.getGroup());
-				if(!isStart){
-					JobDetail jobDetail = getJobDetail(getKey(jobDefPo), jobDefPo.getGroup());
-					BaseJob jobBean = (BaseJob) SpringHelper.getBean(jobDefPo.getBean());	
-					if(jobBean != null){
-						jobDetail = newJob(jobBean.getClass())
-								.withIdentity(getKey(jobDefPo), jobDefPo.getGroup()).storeDurably(false).build();
-					}
-					CronTrigger	trigger = buildCronTrigger(getKey(jobDefPo), jobDefPo.getGroup(), jobDefPo.getExpr());
-					try {
-						isStart = startPlan(jobDefPo.getId(),jobDefPo.getBean(),jobDefPo.getGroup());
-						if(!isStart){				
-							deleteJob(getKey(jobDefPo), jobDefPo.getGroup());
-							scheduler.scheduleJob(jobDetail,trigger);
-							logger.info("Start Job Success:"+jobDefPo.getName());
-						}
-						return true;
-					} catch (SchedulerException e) {			
-						e.printStackTrace();
-						logger.error("Start Job Error:" + jobDefPo.getName() + " " + e.getMessage());
-						return false;
-					}
-				}else {
-					if(!CronUtils.check(jobDefPo.getExpr())){
-						logger.info("Job Expr Error! :" + jobDefPo.getExpr());
-					}else {
-						logger.info("Job has run:" + jobDefPo.getName());	
-					}				
+			logger.info("Enter start Job method, name=" + jobDefPo.getName());
+			isStart = startPlan(jobDefPo.getId(), jobDefPo.getBean(), jobDefPo.getGroup());
+			if(!isStart){
+				JobDetail jobDetail = getJobDetail(getKey(jobDefPo), jobDefPo.getGroup());
+				BaseJob jobBean = (BaseJob) SpringHelper.getBean(jobDefPo.getBean());	
+				if(jobBean != null){
+					jobDetail = newJob(jobBean.getClass())
+							.withIdentity(getKey(jobDefPo), jobDefPo.getGroup()).storeDurably(false).build();
 				}
+				CronTrigger	trigger = buildCronTrigger(getKey(jobDefPo), jobDefPo.getGroup(), jobDefPo.getExpr());
+				try {
+					isStart = startPlan(jobDefPo.getId(), jobDefPo.getBean(), jobDefPo.getGroup());
+					if(!isStart){				
+						deleteJob(getKey(jobDefPo), jobDefPo.getGroup());
+						scheduler.scheduleJob(jobDetail, trigger);
+						logger.info("Start Job Success: " + jobDefPo.getName());
+					}
+					return true;
+				} catch (SchedulerException e) {			
+					logger.error("Start Job Error: {} {}", jobDefPo.getName(), e.getMessage(), e);
+					return false;
+				}
+			}else {
+				logger.info("Job has run: " + jobDefPo.getName());	
 			}
 		}
 		return isStart;
@@ -101,15 +92,15 @@ public class SchedulerServiceImpl implements SchedulerService, InitializingBean 
 	public boolean startJob(String bean, String group, String expr) {
 		logger.info("startJob bean=" + bean + ";group=" + group + ";expr=" + expr);
 		if(!CronUtils.check(expr)){
-			logger.warn("expr error!!! : " + expr);
+			logger.warn("expr error!!! : {}", expr);
 			return false;
 		}
 		BaseJob jobBean = (BaseJob) SpringHelper.getBean(bean);
 		JobDetail job = getJobDetail(bean, group);
-		if(job==null){
+		if(job == null){
 			job = newJob(jobBean.getClass()).withIdentity(bean + "_" + UUID.randomUUID(), group).storeDurably(false).build();
 		}		
-		CronTrigger	trigger = buildCronTrigger(UUID.randomUUID().toString(),group,expr);
+		CronTrigger	trigger = buildCronTrigger(UUID.randomUUID().toString(), group, expr);
 		try {
 			scheduler.scheduleJob(job,trigger);
 			return true;
@@ -174,21 +165,19 @@ public class SchedulerServiceImpl implements SchedulerService, InitializingBean 
 	}
 	
 	public boolean startPlan(Long planId, String bean, String group){
-		TriggerKey triggerKey = new TriggerKey(getKey(bean,planId),group);
+		TriggerKey triggerKey = new TriggerKey(getKey(bean, planId), group);
 		try {
 			Trigger.TriggerState state = scheduler.getTriggerState(triggerKey);
-			if(state != null){
-				if(state == TriggerState.PAUSED || state == TriggerState.BLOCKED){
-					scheduler.resumeTrigger(triggerKey);
-					return true;
-				}else if(state == TriggerState.NONE || state == TriggerState.COMPLETE || state == TriggerState.ERROR){
-					JobKey jobKey = new JobKey(getKey(bean, planId), group);
-					scheduler.deleteJob(jobKey);					
-				}
-			}		
-			return false;
+			if(state == null){
+				return false;
+			}else if(state == TriggerState.PAUSED || state == TriggerState.BLOCKED){
+				scheduler.resumeTrigger(triggerKey);
+				return true;
+			}else if(state == TriggerState.NONE || state == TriggerState.COMPLETE || state == TriggerState.ERROR){
+				scheduler.deleteJob(new JobKey(getKey(bean, planId), group));					
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}		
 		return false;		
 	}
@@ -238,14 +227,11 @@ public class SchedulerServiceImpl implements SchedulerService, InitializingBean 
 	}
 	
 	private JobDetail getJobDetail(String beanId,String group){
-		JobKey jobKey = new JobKey(beanId, group);
 		try {
-			JobDetail jobDetail = scheduler.getJobDetail(jobKey);
-			if(jobDetail != null){
-				return jobDetail;
-			}
-		} catch (SchedulerException e) {			
-			e.printStackTrace();
+			JobDetail jobDetail = scheduler.getJobDetail(new JobKey(beanId, group));
+			if(jobDetail != null) return jobDetail;
+		} catch (SchedulerException e) {	
+			logger.error(e.getMessage(), e);
 		}
 		return null;
 	}
@@ -270,15 +256,10 @@ public class SchedulerServiceImpl implements SchedulerService, InitializingBean 
 		return jobDetail;
 	}
 	
-	private void prepare(JobDetail jobDetail,IJobDefPo jobDefPo){
-		jobDetail.getJobDataMap().put(JobEnum.EXECUTE_TASK_NAME.getValue(), jobDefPo.getName());
-		jobDetail.getJobDataMap().put(JobEnum.EXECUTE_METHOD_NAME.getValue(), jobDefPo.getMethod());
-		jobDetail.getJobDataMap().put(JobEnum.EXECUTE_CLASS_NAME.getValue(), jobDefPo.getBean());
-	}	
-	
 	private String getKey(IJobDefPo jobDefPo){
 		return jobDefPo.getBean() + "_" + jobDefPo.getId();
 	}
+	
 	private String getKey(String bean,Long jobDefId){
 		return bean + "_" + jobDefId;
 	}

@@ -9,17 +9,19 @@ import org.springframework.stereotype.Service;
 
 import com.logaa.domain.mongo.JobRunHi;
 import com.logaa.domain.rdb.JobDef;
+import com.logaa.helper.SpringHelper;
 import com.logaa.quartz.JobPersistenceSupport;
 import com.logaa.quartz.entity.IJobDefPo;
 import com.logaa.quartz.enumer.JobEnum;
 import com.logaa.repository.rdb.JobDefRepository;
 import com.logaa.util.date.TimestampUtils;
 
-@Service
+@Service(value = "jobPersistenceSupport")
 public class JobPersistenceSupportImpl implements JobPersistenceSupport {
 
 	@Autowired
 	JobDefRepository jobDefRepository;
+	
 	@Autowired
 	MongoTemplate mongoTemplate;
 	
@@ -33,7 +35,7 @@ public class JobPersistenceSupportImpl implements JobPersistenceSupport {
 	}
 
 	@Override
-	public List<IJobDefPo> findActivedJobDefPos(String group) {
+	public List<IJobDefPo> findActivedJobDefPos(String group) { 
 		List<JobDef> jobDefPos = jobDefRepository.findByGroupAndStatus(group, JobEnum.JOB_STATUS_RUN.getValue());
 		List<IJobDefPo> iJobDefPos = new ArrayList<IJobDefPo>();
 		iJobDefPos.addAll(jobDefPos);
@@ -48,6 +50,7 @@ public class JobPersistenceSupportImpl implements JobPersistenceSupport {
 	@Override
 	public void saveRunHistory(String key, String group, String status, String log) {
 		JobRunHi jobRunHi = new JobRunHi();
+		jobRunHi.setId(TimestampUtils.getTimestamp());
 		jobRunHi.setcTime(TimestampUtils.getTimestamp());
 		jobRunHi.setGroup(group);
 		jobRunHi.setKey(key);

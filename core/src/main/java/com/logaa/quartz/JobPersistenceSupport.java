@@ -3,7 +3,6 @@ package com.logaa.quartz;
 import java.util.List;
 
 import com.logaa.quartz.entity.IJobDefPo;
-import com.logaa.quartz.entity.IJobParamPo;
 
 public interface JobPersistenceSupport {
 	/**

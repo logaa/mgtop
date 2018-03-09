@@ -10,20 +10,23 @@ import org.quartz.JobExecutionException;
 import org.quartz.Trigger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.logaa.helper.SpringHelper;
 import com.logaa.quartz.enumer.JobEnum;
 import com.logaa.util.date.DateUtils;
 import com.logaa.util.exception.ExceptionUtils;
 
-
+@Component
 public abstract class BaseJob implements Job {
 	
 	final Logger logger = LoggerFactory.getLogger(getClass());
+	
 	final static String TRIGGER_NAME = "defaultDirectExec";
 	
-	public abstract void executeJob(JobExecutionContext context);
+	public abstract void executeJob(JobExecutionContext context) throws JobExecutionException;
 	
+	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		JobPersistenceSupport jobPersistenceSupport = SpringHelper.getBean(JobPersistenceSupport.class);
 		String jobName = context.getJobDetail().getKey().getName();	

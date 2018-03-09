@@ -3,7 +3,7 @@ spring:
     hibernate.ddl-auto: update
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
     show-sql: true
-    hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    #hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
     url: jdbc:mysql://localhost:3306/mgtop?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false
     username: root 
@@ -18,6 +18,9 @@ spring:
     min-evictable-idle-time-millis: 18000
     validation-query: 'select 1'
   data:
+    jpa:
+      repositories:
+        enabled: true
     mongodb:
       uri: mongodb://127.0.0.1:27017/db_mgtop
     elasticsearch:
@@ -26,6 +29,16 @@ spring:
       local: true
       repositories:
           enable: true
+  redis:
+    database: 1
+    host: localhost
+    password:
+    port: 6379
+    pool:
+      max-idle: 50
+      min-idle: 10
+      max-active: 150
+      max-wait: 1000
   thymeleaf.cache: false
   thymeleaf.mode: LEGACYHTML5
 server:

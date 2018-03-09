@@ -2,35 +2,27 @@ package com.logaa.content;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 
+import org.quartz.Scheduler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import com.logaa.quartz.JobPersistenceSupport;
 import com.logaa.quartz.SchedulerService;
 import com.logaa.quartz.SchedulerStartupRegister;
 
-@Component
-public class ProjectStartListener implements ServletContextListener{
+public class ProjectStartListener implements ApplicationListener<ContextRefreshedEvent>{
 
 	final static String JOB_GROUP = "group1";
 	
 	@Resource
-	SchedulerService schedulerService;
-	
-	@Resource
 	SchedulerStartupRegister schedulerStartupRegister;
 	
-	@Resource
-	JobPersistenceSupport jobPersistenceSupport;
-	
 	@Override
-	public void contextDestroyed(ServletContextEvent arg0) {
+	public void onApplicationEvent(ContextRefreshedEvent event) {
+		if(event.getApplicationContext().getParent() != null) return;
 		schedulerStartupRegister.registerJobs(JOB_GROUP);
-	}
-
-	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
-		
 	}
 }

@@ -1,5 +1,9 @@
 package com.logaa.config;
 
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.core.QuartzScheduler;
+import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -19,8 +23,14 @@ import com.logaa.quartz.impl.SchedulerStartupRegisterImpl;
 public class SchedledConfig implements ApplicationContextAware {
 
 	@Bean(name = "scheduler")
-	public Object getScheduler() {
-		return new SchedulerFactoryBean();
+	public Scheduler getScheduler() {
+		try {
+			Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+			return scheduler;
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	@Bean(name = "schedulerService")
@@ -37,7 +47,7 @@ public class SchedledConfig implements ApplicationContextAware {
 	public JobPersistenceSupport getJobPersistenceSupport() {
 		return new JobPersistenceSupportImpl();
 	}
-	
+
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		SpringHelper.setContext(applicationContext);

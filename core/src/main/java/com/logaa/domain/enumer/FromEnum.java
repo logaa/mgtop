@@ -2,7 +2,8 @@ package com.logaa.domain.enumer;
 
 public enum FromEnum {
 
-	JINSE("JINSE", "金色财经");
+	JINSE("JINSE", "金色财经"),
+	BBTC("BBTC", "巴比特");
 	
 	private String key;
 	

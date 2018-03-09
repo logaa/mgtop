@@ -8,9 +8,11 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
+import com.mongodb.Mongo;
+
 
 @Component
-public class MongoDao {
+public class MongoDao{
 
 	@Autowired
 	MongoTemplate mongoTemplate;
