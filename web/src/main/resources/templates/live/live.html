@@ -1,0 +1,37 @@
+<!-- head -->
+<div th:include="@{/include/head}"></div>
+<body id="blog">
+	<header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+		<div class="am-u-sm-8 am-u-sm-centered">
+			<h2 class="am-hide-sm-only">Live</h2>
+		</div>
+	</header>
+	<hr>
+	<nav class="am-g am-g-fixed blog-fixed blog-nav">
+		<div class="am-collapse am-topbar-collapse" id="blog-collapse">
+			<ul class="am-nav am-nav-pills am-topbar-nav">
+				<li class="am-active"><a href="#">快讯</a></li>
+				<li><a href="#">新闻</a></li>
+			</ul>
+		</div>
+	</nav>
+	<hr>
+	<!-- content srart -->
+	<div class="am-g am-g-fixed blog-fixed">
+		<div class="am-u-md-12 am-u-sm-12">
+			<div id="content"></div>
+			<ul class="am-pagination">
+				<input type="hidden" id="hidPage" value="0" />
+				<input type="hidden" id="hidMaxSize" value="10" />
+				<li class="am-pagination-prev"><a id="prev"
+					href="javascript:void()">&laquo; Prev</a></li>
+				<li class="am-pagination-next"><a id="next"
+					href="javascript:void()">Next &raquo;</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- footer -->
+	<div th:include="@{/include/footer}"></div>
+	<script th:src="@{/live/live.js}"></script>
+</body>
+</html>
