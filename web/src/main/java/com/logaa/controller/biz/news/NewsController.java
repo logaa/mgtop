@@ -29,7 +29,7 @@ public class NewsController {
 		return new BaseResponse<List<News>>(news);
 	}
 	
-	@GetMapping(value = "/update")
+	/*@GetMapping(value = "/update")
 	public String update(){
 		List<News> news = mongoTemplate.findAll(News.class);
 		if(!news.isEmpty()){
@@ -52,5 +52,5 @@ public class NewsController {
 			});
 		}
 		return null;
-	}
+	}*/
 }
