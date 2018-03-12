@@ -1,5 +1,7 @@
 package com.logaa.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -40,5 +42,19 @@ public class MongoDao{
 	
 	public void save(Object obj, String collectionName){
 		mongoTemplate.save(obj, collectionName);
+	}
+	
+	public <T> List<T> find(int page, int size, Direction direction, String sort, Class<T> clazz){
+		return mongoTemplate.find(new Query()
+				.with(new Sort(new Sort.Order(direction, sort)))
+				.skip(Integer.valueOf(page * size))
+				.limit(size), clazz);
+	}
+	
+	public <T> List<T> find(int page, int size, Direction direction, String sort, Class<T> clazz , String collectionName){
+		return mongoTemplate.find(new Query()
+				.with(new Sort(new Sort.Order(direction, sort)))
+				.skip(Integer.valueOf(page * size))
+				.limit(size), clazz, collectionName);
 	}
 }

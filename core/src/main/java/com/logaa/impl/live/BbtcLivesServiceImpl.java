@@ -43,7 +43,8 @@ public class BbtcLivesServiceImpl implements BbtcLivesService{
 	@Override
 	public void bbtcLivesCrawl() {
 		HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
-	    httpClientDownloader.setProxyProvider(mogumiaoHelper.getProxy());
+	    //httpClientDownloader.setProxyProvider(mogumiaoHelper.getProxy());
+	    httpClientDownloader.setProxyProvider(SpiderHelper.getProxys());
 		String url = String.format(BBTC_LIVES_URL, 1);
 		Spider.create(new BbtcLivesProcessor())
 			.addPipeline(new BbtcLivesPipeline())

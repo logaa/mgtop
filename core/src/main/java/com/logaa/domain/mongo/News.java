@@ -18,6 +18,8 @@ public class News {
 	private Integer click = 0;
 
 	private Long cTime;
+	
+	private String img;
 
 	/**
 	 * @param id
@@ -27,7 +29,7 @@ public class News {
 	 * @param from
 	 * @param cTime
 	 */
-	public News(String id, String title, String date, String content, String from, Long cTime) {
+	public News(String id, String title, String date, String content, String from, Long cTime, String img) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -35,6 +37,7 @@ public class News {
 		this.content = content;
 		this.from = from;
 		this.cTime = cTime;
+		this.img = img;
 	}
 
 	public String getId() {
@@ -91,6 +94,14 @@ public class News {
 
 	public void setcTime(Long cTime) {
 		this.cTime = cTime;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 	
 }

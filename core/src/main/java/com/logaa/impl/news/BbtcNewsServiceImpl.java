@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,8 @@ public class BbtcNewsServiceImpl implements BbtcNewsService {
 	@Override
 	public void bbtcNewsCrawl() {
 		HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
-		httpClientDownloader.setProxyProvider(mogumiaoHelper.getProxy());
+		//httpClientDownloader.setProxyProvider(mogumiaoHelper.getProxy());
+		httpClientDownloader.setProxyProvider(SpiderHelper.getProxys());
 		String url = String.format(BBTC_NEWS_URL, 1);
 		Spider.create(new BbtcNewsProcessor())
 			.addPipeline(new BbtcNewsPipeline())
@@ -82,9 +84,15 @@ public class BbtcNewsServiceImpl implements BbtcNewsService {
 				doc.getElementsByClass("content-bottom").remove();
 				doc.getElementsByClass("akp-adv").remove();
 				doc.getElementsByClass("content-source-info").remove();
+				String img = "";
+				if(doc.getElementsByTag("img") != null 
+						&& !doc.getElementsByTag("img").isEmpty()){
+					Element element = doc.getElementsByTag("img").first();
+					img = element.attr("src");
+				}
 				String content = doc.getElementsByClass("article-content").get(0).toString();
 				page.getResultItems().put("bbtcNews", new News(FromEnum.BBTC.getKey() + index, title, date, content,
-						FromEnum.BBTC.getKey(), TimestampUtils.getTimestamp()));
+						FromEnum.BBTC.getKey(), TimestampUtils.getTimestamp(), img));
 			}
 		}
 
