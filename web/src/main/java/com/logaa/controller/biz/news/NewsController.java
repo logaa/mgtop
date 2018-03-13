@@ -29,28 +29,4 @@ public class NewsController {
 		return new BaseResponse<List<News>>(news);
 	}
 	
-	/*@GetMapping(value = "/update")
-	public String update(){
-		List<News> news = mongoTemplate.findAll(News.class);
-		if(!news.isEmpty()){
-			news.forEach(e -> {
-				String content = e.getContent();
-				if(content.indexOf("<img") > -1){
-					int startIndex = content.indexOf("<img");
-					int endIndex = content.substring(startIndex, content.length()).indexOf(">");
-					String img = content.substring(startIndex, startIndex + endIndex + 1);
-					
-					int si = img.indexOf("http");
-					int ei = img.substring(si, img.length()).indexOf("\"");
-					String src = img.substring(si, si + ei);
-					
-					e.setImg(src);
-				}else{
-					e.setImg("http://cdn.8btc.com/wp-content/uploads/2018/03/201803080304041603.jpg");
-				}
-				mongoTemplate.save(e);
-			});
-		}
-		return null;
-	}*/
 }

@@ -46,13 +46,13 @@ public class BbtcNewsServiceImpl implements BbtcNewsService {
 	
 	@Override
 	public void bbtcNewsCrawl() {
-		HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
+		//HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
 		//httpClientDownloader.setProxyProvider(mogumiaoHelper.getProxy());
-		httpClientDownloader.setProxyProvider(SpiderHelper.getProxys());
+		//httpClientDownloader.setProxyProvider(SpiderHelper.getProxys());
 		String url = String.format(BBTC_NEWS_URL, 1);
 		Spider.create(new BbtcNewsProcessor())
 			.addPipeline(new BbtcNewsPipeline())
-			.setDownloader(httpClientDownloader)
+			//.setDownloader(httpClientDownloader)
 			.addUrl(url)
 			.thread(5)
 			.run();
