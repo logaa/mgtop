@@ -9,11 +9,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
-import com.logaa.dao.MongoDao;
 import com.logaa.domain.enumer.FromEnum;
 import com.logaa.domain.mongo.Lives;
-import com.logaa.helper.MogumiaoHelper;
 import com.logaa.helper.SpiderHelper;
+import com.logaa.helper.XdailiHelper;
 import com.logaa.service.live.BbtcLivesService;
 import com.logaa.util.date.TimestampUtils;
 
@@ -22,7 +21,6 @@ import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.Task;
-import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 
@@ -34,7 +32,7 @@ public class BbtcLivesServiceImpl implements BbtcLivesService{
 	final static String BBTC_LIVES_URL = "http://www.8btc.com/news/page/%s";
 
 	@Autowired
-	MogumiaoHelper mogumiaoHelper;
+	XdailiHelper xdailiHelper;
 	
 	@Autowired
 	MongoTemplate mongoTemplate;
@@ -43,7 +41,7 @@ public class BbtcLivesServiceImpl implements BbtcLivesService{
 	@Override
 	public void bbtcLivesCrawl() {
 		//HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
-	    //httpClientDownloader.setProxyProvider(mogumiaoHelper.getProxy());
+	    //httpClientDownloader.setProxyProvider(xdailiHelper.getProxy());
 	    //httpClientDownloader.setProxyProvider(SpiderHelper.getProxys());
 		String url = String.format(BBTC_LIVES_URL, 1);
 		Spider.create(new BbtcLivesProcessor())

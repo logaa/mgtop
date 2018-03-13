@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.logaa.domain.enumer.FromEnum;
 import com.logaa.domain.mongo.News;
-import com.logaa.helper.MogumiaoHelper;
 import com.logaa.helper.SpiderHelper;
+import com.logaa.helper.XdailiHelper;
 import com.logaa.service.news.BbtcNewsService;
 import com.logaa.util.date.TimestampUtils;
 
@@ -39,7 +39,7 @@ public class BbtcNewsServiceImpl implements BbtcNewsService {
 	final static String BBTC_NEWS_URL = "http://www.8btc.com/sitemap?newPost=1&pg=%s";
 	
 	@Autowired
-	MogumiaoHelper mogumiaoHelper;
+	XdailiHelper xdailiHelper;
 	
 	@Autowired
 	MongoTemplate mongoTemplate;
@@ -47,7 +47,7 @@ public class BbtcNewsServiceImpl implements BbtcNewsService {
 	@Override
 	public void bbtcNewsCrawl() {
 		//HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
-		//httpClientDownloader.setProxyProvider(mogumiaoHelper.getProxy());
+		//httpClientDownloader.setProxyProvider(xdailiHelper.getProxy());
 		//httpClientDownloader.setProxyProvider(SpiderHelper.getProxys());
 		String url = String.format(BBTC_NEWS_URL, 1);
 		Spider.create(new BbtcNewsProcessor())
