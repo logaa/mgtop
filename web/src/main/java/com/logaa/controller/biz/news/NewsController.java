@@ -20,9 +20,6 @@ public class NewsController {
 	@Autowired
 	NewsService newsService;
 	
-	@Autowired
-	MongoTemplate mongoTemplate;
-	
 	@GetMapping(value = "/find/{page}/{size}")
 	public BaseResponse<List<News>> find(@PathVariable(name = "page")int page, @PathVariable(name = "size")int size){
 		List<News> news = newsService.find(page, size);
