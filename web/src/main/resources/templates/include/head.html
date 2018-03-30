@@ -15,8 +15,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Index" />
 <meta name="msapplication-TileColor" content="#0e90d2">
-<link rel="stylesheet" th:href="@{amazeui/css/amazeui.min.css}">
-<link rel="stylesheet" th:href="@{amazeui/css/app.css}">
+<link rel="stylesheet" th:href="${#httpServletRequest.getContextPath() + '/amazeui/css/amazeui.min.css'}">
+<link rel="stylesheet" th:href="${#httpServletRequest.getContextPath() + '/amazeui/css/app.css'}">
 <script th:inline="javascript">
     var basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/; 
 </script>
