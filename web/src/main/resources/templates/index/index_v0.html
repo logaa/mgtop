@@ -1,5 +1,5 @@
 <!-- head -->
-<div th:include="@{include/head}"></div>
+<div th:include="@{/include/head}"></div>
 <body id="blog">
 	<header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
 		<div class="am-u-sm-8 am-u-sm-centered">
@@ -39,10 +39,10 @@
 			<div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
 	            <h2 class="blog-title"><span>热门标签</span></h2>
 	            <div class="am-u-sm-12 blog-clear-padding">
-		            <a href="" class="blog-tag">区块链</a>
-		            <a href="" class="blog-tag">加密币</a>
-		            <a href="" class="blog-tag">快讯</a>
-		            <a href="" class="blog-tag">新闻</a>
+		            <a href="#" class="blog-tag">区块链</a>
+		            <a href="#" class="blog-tag">加密币</a>
+		            <a href="#" class="blog-tag">快讯</a>
+		            <a href="#" class="blog-tag">新闻</a>
 	            </div>
 	        </div>
 			<div class="blog-sidebar-widget blog-bor">
@@ -57,17 +57,17 @@
 	        <div class="blog-sidebar-widget blog-bor">
 	            <h2 class="blog-text-center blog-title"><span>关注我们</span></h2>
 	            <p>
-	                <a href=""><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
-	                <a href=""><span class="am-icon-github am-icon-fw blog-icon"></span></a>
-	                <a href=""><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
-	                <a href=""><span class="am-icon-reddit am-icon-fw blog-icon"></span></a>
-	                <a href=""><span class="am-icon-weixin am-icon-fw blog-icon"></span></a>
+	                <a href="#"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
+	                <a href="#"><span class="am-icon-github am-icon-fw blog-icon"></span></a>
+	                <a href="#"><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
+	                <a href="#"><span class="am-icon-reddit am-icon-fw blog-icon"></span></a>
+	                <a href="#"><span class="am-icon-weixin am-icon-fw blog-icon"></span></a>
 	            </p>
 	        </div>
 	    </div>
 	</div>
 	<!-- footer -->
-	<div th:include="@{include/footer}"></div>
-	<script th:src="@{index/index.js}"></script>
+	<div th:include="@{/include/footer}"></div>
+	<script th:src="@{/index/index.js}"></script>
 </body>
 </html>

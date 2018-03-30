@@ -13,9 +13,7 @@
           </p>
         </div>        
         <div class="am-article-bd">      
-        <div th:if="${news} == true" th:utext="${result.content}"></div> 
-        <p class="am-article-lead" th:if="${lives} == true" th:text="${result.content}">
-		</p>
+        <div th:utext="${result.content}"></div> 
         </div>
       </article>
         <hr>

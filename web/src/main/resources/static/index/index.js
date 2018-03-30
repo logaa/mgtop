@@ -5,7 +5,7 @@ function findLives(page, size){
 			if(re.code == 200){
 				var html = '';
 				$.each(re.data, function(n, x){
-					html += '<li><a href="#"><span>' + x.date + '</span> -- <span>' + x.title + '</span></a></li>';
+					html += '<li><a href="lives/' + x.id + '"><span>' + x.date + '</span> -- <span>' + x.title + '</span></a></li>';
 				});
 				$('#lives-content').empty().append(html);
 			}else{
@@ -28,7 +28,7 @@ function findNews(page, size){
 					'<div class="am-u-lg-6 am-u-md-6 am-u-sm-12 blog-entry-img">' +
 					'<img style="height:218px" src="'+ x.img +'" alt="" class="am-u-sm-12"></div>' +
 					'<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">'+
-					'<h1>'+ x.title +'</h1>'+
+					'<h1><a href="news/' + x.id + '">'+ x.title +'</a></h1>'+
 					'<span>' + x.date + '</span>' + content + 
 					'<p><a href="" class="blog-continue">continue</a></p></div></article>';
 				});
