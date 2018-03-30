@@ -1,6 +1,6 @@
 function findLives(page, size){
 	$.ajax({
-		url:'/lives/find/' + page + "/" + size,
+		url: basePath + '/lives/find/' + page + "/" + size,
 		success:function(re){
 			if(re.code == 200){
 				var html = '';
@@ -18,7 +18,7 @@ function findNews(page, size){
 	$('#hidPage').val(page);
 	$('#hidSize').val(size);
 	$.ajax({
-		url:'/news/find/' + page + "/" + size,
+		url: basePath + '/news/find/' + page + "/" + size,
 		success:function(re){
 			if(re.code == 200){
 				var html = '';
