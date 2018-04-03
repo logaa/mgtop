@@ -47,7 +47,7 @@ public class CryptoCompareServiceImpl implements CryptoCompareService {
 	@Autowired
 	CoinListRepository coinListRepository;
 	@Autowired
-	CryptoCompareHelper cryptoCompareHelper;
+	private CryptoCompareHelper cryptoCompareHelper;
 	@Autowired
 	CoinChangeRankRepository coinChangeRankRepository;
 	
