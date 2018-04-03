@@ -51,6 +51,7 @@ $('#next').click(function(){
 	page = page + 1;
 	findNews(page, size);
 });
-findLives(0, 25);
-findNews(0, 10);
-
+(function init(){
+	findLives(0, 25);
+	findNews(0, 10);
+})();

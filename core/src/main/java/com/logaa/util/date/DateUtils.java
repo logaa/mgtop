@@ -1,5 +1,7 @@
 package com.logaa.util.date;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -221,6 +223,113 @@ public class DateUtils {
 		Date newDate = new Date();
 		if(null != date && !"".equals(date)) newDate = string2Date(date, format);
 		return addSecondToDate(second, newDate, format);
+	}
+	
+	public static Date addDays(Date beginningDate, int days2add) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(beginningDate);
+		calendar.add(Calendar.DATE, days2add);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
+	}
+
+	public static Date addYear(Date beginningDate, int year2add) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(beginningDate);
+		calendar.add(Calendar.YEAR, year2add);
+		return calendar.getTime();
+	}
+
+	public static Date addHour(Date beginningDate, int hours) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(beginningDate);
+		calendar.add(Calendar.HOUR, hours);
+		return calendar.getTime();
+	}
+
+	public static Date addMonth(Date beginningDate, int monthes) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(beginningDate);
+		calendar.add(Calendar.MONTH, monthes);
+		return calendar.getTime();
+	}
+
+	public static Date addMin(Date beginningDate, int mins) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(beginningDate);
+		calendar.add(Calendar.MINUTE, mins);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
+	}
+
+	public static Date addSec(Date beginningDate, int sec) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(beginningDate);
+		calendar.add(Calendar.SECOND, sec);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
+	}
+	
+	/**
+	 * 计算两个时间相隔天数
+	 * d1.getTime() - d2.getTime()
+	 * @param d1
+	 * @param d2
+	 * @return
+	 */
+	public static int getDateDiff(Date d1, Date d2) {
+		d1 = set2beEndOfDay(d1);
+		d2 = set2beEndOfDay(d2);
+		Calendar calendar1 = Calendar.getInstance();
+		Calendar calendar2 = Calendar.getInstance();
+		calendar1.setTime(d1);
+		calendar2.setTime(d2);
+		Long t1 = calendar1.getTimeInMillis();
+		Long t2 = calendar2.getTimeInMillis();
+		int a = 24 * 60 * 60 * 1000;
+		BigDecimal b1 = new BigDecimal(t1.toString());
+		BigDecimal b2 = new BigDecimal(t2.toString());
+		BigDecimal ba = new BigDecimal(String.valueOf(a));
+		BigDecimal distance = b1.subtract(b2).divide(ba, RoundingMode.HALF_UP);
+		if (distance.compareTo(BigDecimal.ZERO) > 0 && distance.compareTo(BigDecimal.ONE) < 0)
+			return 1;
+		if (distance.compareTo(BigDecimal.ONE.negate()) > 0 && distance.compareTo(BigDecimal.ZERO) < 0)
+			return -1;
+		// +1
+		Long val = distance.longValue();
+		if (distance.compareTo(new BigDecimal(val.toString())) > 0)
+			val += 1;
+		return Math.abs(val.intValue());
+	}
+	
+	/**
+	 * 把时间格式到一天的最后
+	 * 
+	 * @param time
+	 * @return
+	 */
+	public static Date set2beEndOfDay(Date time) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(time);
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		return calendar.getTime();
+	}
+
+	/**
+	 * 把时间格式到一天的开始
+	 * 
+	 * @param time
+	 * @return
+	 */
+	public static Date set2beStartOfDay(Date time) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(time);
+		calendar.set(Calendar.HOUR_OF_DAY, 00);
+		calendar.set(Calendar.MINUTE, 00);
+		calendar.set(Calendar.SECOND, 00);
+		return calendar.getTime();
 	}
 	
 	/**

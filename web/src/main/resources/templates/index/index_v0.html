@@ -7,12 +7,11 @@
 		</div>
 	</header>
 	<hr>
-	<nav class="am-g am-g-fixed blog-fixed blog-nav">
+	<nav class="am-g am-g-fixed blog-fixed blog-nav" style="max-width: 1650px;">
 		<div class="am-collapse am-topbar-collapse" id="blog-collapse">
 			<ul class="am-nav am-nav-pills am-topbar-nav">
 				<li class="am-active"><a href="#">首页</a></li>
-				<li><a href="#">快讯</a></li>
-				<li><a href="#">新闻</a></li>
+				<li><a th:href="@{market/index}">行情</a></li>
 			</ul>
 			<form class="am-topbar-form am-topbar-right am-form-inline" role="search">
 		      <div class="am-form-group">
@@ -23,7 +22,7 @@
 	</nav>
 	<hr>
 	<!-- content srart -->
-	<div class="am-g am-g-fixed blog-fixed">
+	<div class="am-g am-g-fixed blog-fixed" style="max-width: 1650px;">
 		<div class="am-u-md-8 am-u-sm-12">
 			<div id="news-content"></div>
 			<ul class="am-pagination">

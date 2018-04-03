@@ -1,0 +1,78 @@
+<!-- head -->
+<div th:include="@{include/head}"></div>
+
+<body id="blog">
+	<header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+		<div class="am-u-sm-8 am-u-sm-centered">
+			<h2 class="am-hide-sm-only">Market</h2>
+		</div>
+	</header>
+	<hr>
+	<nav class="am-g am-g-fixed blog-fixed blog-nav" style="max-width: 1650px;">
+		<div class="am-collapse am-topbar-collapse" id="blog-collapse">
+			<ul class="am-nav am-nav-pills am-topbar-nav">
+				<li><a th:href="@{/index}">首页</a></li>
+				<li class="am-active"><a th:href="@{/market/index}">行情</a></li>
+			</ul>
+			<form class="am-topbar-form am-topbar-right am-form-inline" role="search">
+		      <div class="am-form-group">
+		        <input type="text" class="am-form-field am-input-sm" placeholder="搜索">
+		      </div>
+		    </form>
+		</div>
+	</nav>
+	<hr>
+	<div class="am-g am-g-fixed blog-fixed" style="max-width: 1650px;">
+		<div class="am-u-lg-8 am-u-sm-12" >
+			<table class="am-table">
+			    <thead>
+			        <tr>
+			            <th colspan="2">货币</th>
+			            <th>价格（open/close）</th>
+			            <th>价格（low/high）</th>
+			            <th>24H交易量（from/to）</th>
+			            <th>24H变化</th>
+			            <th>7D趋势</th>
+			        </tr>
+			    </thead>
+			    <tbody id="coinList"></tbody>
+			</table>
+			<ul class="am-pagination">
+				<input type="hidden" id="hidPage" value="0" />
+				<input type="hidden" id="hidSize" value="30" />
+				<li class="am-pagination-prev"><a id="prev" class="prev"
+					href="javascript:void()">&laquo; Prev</a></li>
+				<li class="am-pagination-next"><a id="next" class="next"
+					href="javascript:void()">Next &raquo;</a></li>
+			</ul>
+		</div>
+		<div class="am-u-lg-4 am-u-sm-12 blog-sidebar">
+		
+			<div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+	            <h2 class="blog-title"><span>24H全球加密货币涨跌</span></h2>
+	            <div class="am-u-sm-12 blog-clear-padding">
+	            	<div id="24hUpdownChart" style="width: 200px;height: 200px;margin-left: 30%"></div>
+	            </div>
+			</div>
+			
+			<div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+	            <h2 class="blog-title"><span>24H涨跌排行</span></h2>
+	            <div class="am-btn-group am-btn-group-xs" style="float: right;margin: 5;margin-bottom: 15;">
+				  <button type="button" class="btn-changeRank-up am-btn am-btn-danger am-round">涨</button>
+				  <button type="button" class="btn-changeRank-down am-btn am-btn-default am-round">跌</button>
+				</div>
+	            <div class="am-u-sm-12 blog-clear-padding">
+		            <table class="am-table">
+					    <tbody id="changeRank"></tbody>
+			        </table>
+	            </div>
+	        </div>
+        </div>
+		
+	</div>
+<!-- footer -->
+<div th:include="@{include/footer}"></div>
+<script th:src="@{/third/echarts/echarts.min.js}"></script>
+<script th:src="@{/market/market.js}"></script>
+</body>
+</html>

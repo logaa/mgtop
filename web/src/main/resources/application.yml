@@ -42,6 +42,9 @@ spring:
   thymeleaf.cache: false
   thymeleaf.mode: LEGACYHTML5
   profiles: local
+  mvc:
+    favicon:
+      enabled: false
 server:
   contextPath: /web
   port: 80

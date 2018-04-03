@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.logaa.domain.mongo.JobRunHi;
-import com.logaa.domain.rdb.JobDef;
+import com.logaa.domain.rdb.job.JobDef;
 import com.logaa.helper.SpringHelper;
 import com.logaa.quartz.JobPersistenceSupport;
 import com.logaa.quartz.entity.IJobDefPo;

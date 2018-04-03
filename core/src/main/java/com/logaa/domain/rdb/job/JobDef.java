@@ -1,4 +1,4 @@
-package com.logaa.domain.rdb;
+package com.logaa.domain.rdb.job;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

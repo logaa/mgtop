@@ -2,6 +2,7 @@ package com.logaa.util.date;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +49,23 @@ public class TimestampUtils {
      */
     public static Long getTimestamp(){
     	return new Timestamp(new Date().getTime()).getTime();
+    }
+    
+    /**
+     * 指定时间获取timestamp
+     * @param date 指定时间，默认当前时间
+     * @param hour 指定小时
+     * @param minute 指定分钟
+     * @param second 指定秒
+     * @return timestamp
+     */
+    public static Long getTimestamp(Date date, Integer hour, Integer minute, Integer second){
+    	Calendar calender = Calendar.getInstance();
+    	if(date != null) calender.setTime(date);
+		if(hour != null) calender.set(Calendar.HOUR_OF_DAY, hour);
+		if(minute != null) calender.set(Calendar.MINUTE, minute);
+		if(second != null) calender.set(Calendar.SECOND, second);
+    	return date2Timestamp(calender.getTime()).getTime();
     }
    
 }

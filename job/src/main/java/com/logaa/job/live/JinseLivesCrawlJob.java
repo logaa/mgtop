@@ -1,4 +1,4 @@
-package com.logaa.job;
+package com.logaa.job.live;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
