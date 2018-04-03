@@ -18,11 +18,10 @@ import com.logaa.domain.po.cryptocompare.CryptoResult;
 import com.logaa.http.ApiRequest;
 import com.logaa.http.ApiRequest.Verb;
 
-
 @Component
 public class CryptoCompareHelper {
 
-Logger logger = LoggerFactory.getLogger(getClass());
+	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	static final String BASE_V1_URL = "https://www.cryptocompare.com/api/data/";
 	static final String BASE_V2_URL = "https://min-api.cryptocompare.com/data/";
