@@ -1,6 +1,5 @@
 package com.logaa.controller.biz.market;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,7 @@ import com.logaa.view.BaseResponse;
 @RequestMapping("/market")
 public class MarketController {
 
-	@Autowired
-	CryptoCompareService cryptoCompareService;
+	@Autowired CryptoCompareService cryptoCompareService;
 	
 	@GetMapping("/index")
 	public String index(){

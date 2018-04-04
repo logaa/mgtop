@@ -25,8 +25,7 @@ public class JinseLivesServiceImpl implements JinseLivesService {
 	
 	final static String JINSE_LIVES_URL = "http://www.jinse.com/ajax/lives/getList?id=%s&flag=%s";
 	
-	@Autowired
-	MongoDao mongoDao;
+	@Autowired MongoDao mongoDao;
 	
 	@SuppressWarnings("unchecked")
 	@Override

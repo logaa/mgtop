@@ -22,10 +22,8 @@ import com.logaa.view.BaseResponse;
 @RequestMapping("/lives")
 public class LivesController {
 
-	@Autowired
-	LivesService livesService;
-	@Autowired
-	MongoDao mongoDao;
+	@Autowired LivesService livesService;
+	@Autowired MongoDao mongoDao;
 	
 	@GetMapping(value = "/find/{page}/{size}")
 	@ResponseBody

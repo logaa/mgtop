@@ -38,11 +38,9 @@ public class BbtcNewsServiceImpl implements BbtcNewsService {
 	final static String BBTC_BASE_URL = "http://www.8btc.com";
 	final static String BBTC_NEWS_URL = "http://www.8btc.com/sitemap?newPost=1&pg=%s";
 	
-	@Autowired
-	XdailiHelper xdailiHelper;
+	@Autowired XdailiHelper xdailiHelper;
 	
-	@Autowired
-	MongoTemplate mongoTemplate;
+	@Autowired MongoTemplate mongoTemplate;
 	
 	@Override
 	public void bbtcNewsCrawl() {

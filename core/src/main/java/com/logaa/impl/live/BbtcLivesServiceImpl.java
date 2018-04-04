@@ -31,11 +31,9 @@ public class BbtcLivesServiceImpl implements BbtcLivesService{
 	
 	final static String BBTC_LIVES_URL = "http://www.8btc.com/news/page/%s";
 
-	@Autowired
-	XdailiHelper xdailiHelper;
+	@Autowired XdailiHelper xdailiHelper;
 	
-	@Autowired
-	MongoTemplate mongoTemplate;
+	@Autowired MongoTemplate mongoTemplate;
 	
 	
 	@Override
@@ -78,7 +76,6 @@ public class BbtcLivesServiceImpl implements BbtcLivesService{
 						FromEnum.BBTC.getKey(), null, null, TimestampUtils.getTimestamp()));
 			}
 		}
-
 		@Override
 		public Site getSite() {
 			return SpiderHelper.getSite();
@@ -86,7 +83,6 @@ public class BbtcLivesServiceImpl implements BbtcLivesService{
 	}
 	
 	class BbtcLivesPipeline implements Pipeline{
-
 		@Override
 		public void process(ResultItems resultItems, Task task) {
 			Lives live = resultItems.get("bbtcLive");
@@ -95,6 +91,5 @@ public class BbtcLivesServiceImpl implements BbtcLivesService{
 				logger.info(new Gson().toJson(live));
 			}
 		}
-		
 	}
 }

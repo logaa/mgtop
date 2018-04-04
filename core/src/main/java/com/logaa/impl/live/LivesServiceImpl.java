@@ -14,8 +14,7 @@ import com.logaa.service.live.LivesService;
 @Service
 public class LivesServiceImpl implements LivesService {
 
-	@Autowired
-	MongoDao mongoDao;
+	@Autowired MongoDao mongoDao;
 	
 	@Override
 	public List<Lives> find(int page, int size) {

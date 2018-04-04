@@ -42,21 +42,17 @@ public class CryptoCompareServiceImpl implements CryptoCompareService {
 		time, id, change
 	}
 
-	@Autowired
-	MongoDao mongoDao;
-	@Autowired
-	CoinListRepository coinListRepository;
-	@Autowired
-	private CryptoCompareHelper cryptoCompareHelper;
-	@Autowired
-	CoinChangeRankRepository coinChangeRankRepository;
+	@Autowired MongoDao mongoDao;
+	@Autowired CoinListRepository coinListRepository;
+	@Autowired CryptoCompareHelper cryptoCompareHelper;
+	@Autowired CoinChangeRankRepository coinChangeRankRepository;
 	
 	@Override
 	public void updateCryptoCompareMarket() {
 		List<CoinList> coins = coinListRepository.findAll();
 		if(coins == null) return;
 		ExecutorService service = Executors.newSingleThreadExecutor();
-		final int limit = 100;
+		final int limit = 100; // 限制频率100睡眠60s
 		AtomicInteger i = new AtomicInteger();
 		while (i.get() < (coins.size()/limit + 1)) {
 			Runnable target = new Runnable() {
@@ -64,7 +60,7 @@ public class CryptoCompareServiceImpl implements CryptoCompareService {
 				public void run() {
 					saveCryptoCompareMarket(coins.stream().skip(i.get() * limit).limit(limit).collect(Collectors.toList()));
 					try {
-						Thread.sleep(60_000);
+						Thread.sleep(60_000); // 睡眠60s
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

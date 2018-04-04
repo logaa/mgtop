@@ -19,10 +19,8 @@ import com.logaa.view.BaseResponse;
 @RequestMapping("/news")
 public class NewsController {
 
-	@Autowired
-	NewsService newsService;
-	@Autowired
-	MongoDao mongoDao;
+	@Autowired NewsService newsService;
+	@Autowired MongoDao mongoDao;
 	
 	@GetMapping(value = "/find/{page}/{size}")
 	@ResponseBody
