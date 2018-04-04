@@ -57,7 +57,7 @@ spring:
     show-sql: true
     #hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
-    url: jdbc:mysql://192.169.235.181:33060/mgtop?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://116.255.159.171:3306/mgtop?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false
     username: root 
     password: p@ssw0rd 
     driver-class-name: com.mysql.jdbc.Driver
@@ -74,7 +74,7 @@ spring:
       repositories:
         enabled: true
     mongodb:
-      uri: mongodb://dbmgtop:p%40ssw0rd@192.169.235.181:27017/db_mgtop 
+      uri: mongodb://dbmgtop:p%40ssw0rd@116.255.159.171:27017/db_mgtop 
     #elasticsearch:
     #  cluster-name: logaa-elasticsearch
     #  cluster-nodes: 127.0.0.1:9300
@@ -83,7 +83,7 @@ spring:
     #      enable: true
   redis:
     database: 1
-    host: 192.169.235.181
+    host: 116.255.159.171
     password: p@ssw0rd
     port: 63790
     pool:
