@@ -28,7 +28,7 @@ import com.logaa.domain.po.cryptocompare.CoinListPo;
 import com.logaa.domain.po.cryptocompare.CryptoModel;
 import com.logaa.domain.rdb.crypto.CoinChangeRank;
 import com.logaa.domain.rdb.crypto.CoinList;
-import com.logaa.helper.CryptoCompareHelper;
+import com.logaa.helper.A;
 import com.logaa.repository.rdb.CoinChangeRankRepository;
 import com.logaa.repository.rdb.CoinListRepository;
 import com.logaa.service.crypto.CryptoCompareService;

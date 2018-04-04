@@ -9,7 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import com.logaa.domain.rdb.crypto.CoinList;
-import com.logaa.helper.CryptoCompareHelper;
+import com.logaa.helper.A;
 import com.logaa.helper.SpringHelper;
 import com.logaa.quartz.BaseJob;
 import com.logaa.repository.rdb.CoinListRepository;

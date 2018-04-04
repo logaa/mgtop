@@ -19,7 +19,7 @@ import com.logaa.http.ApiRequest;
 import com.logaa.http.ApiRequest.Verb;
 
 @Component
-public class CryptoCompareHelper {
+public class A {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
