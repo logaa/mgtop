@@ -44,7 +44,7 @@ public class CryptoCompareServiceImpl implements CryptoCompareService {
 
 	@Autowired MongoDao mongoDao;
 	@Autowired CoinListRepository coinListRepository;
-	@Autowired CryptoCompareHelper cryptoCompareHelper;
+	//@Autowired CryptoCompareHelper cryptoCompareHelper;
 	@Autowired CoinChangeRankRepository coinChangeRankRepository;
 	
 	@Override
@@ -73,7 +73,7 @@ public class CryptoCompareServiceImpl implements CryptoCompareService {
 	}
 
 	private void saveCryptoCompareMarket(List<CoinList> coins) {
-		coins.forEach(e -> {
+		/*coins.forEach(e -> {
 			String collection = CacheKey.CRYPTOCOMPARE_MARKET + e.getName();
 			boolean collectionExists = mongoDao.collectionExists(collection);
 			List<CryptoModel> cryptoModel = null;
@@ -94,7 +94,7 @@ public class CryptoCompareServiceImpl implements CryptoCompareService {
 					mongoDao.save(market, collection);
 				});
 			}
-		});
+		});*/
 	}
 
 	@Override
