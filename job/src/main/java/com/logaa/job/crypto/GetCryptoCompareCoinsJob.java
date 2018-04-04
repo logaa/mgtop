@@ -20,7 +20,7 @@ public class GetCryptoCompareCoinsJob extends BaseJob{
 	@Override
 	public void executeJob(JobExecutionContext context) throws JobExecutionException {
 		CoinListRepository coinListRepository = SpringHelper.getBean(CoinListRepository.class);
-		/*CryptoCompareHelper cryptoCompareHelper = SpringHelper.getBean(CryptoCompareHelper.class);
+		CryptoCompareHelper cryptoCompareHelper = SpringHelper.getBean(CryptoCompareHelper.class);
 		List<CoinList> coins = new ArrayList<>();
 		cryptoCompareHelper.getCoinList().forEach(e -> {
 			CoinList coin = coinListRepository.findByName(e.getName());
@@ -28,7 +28,7 @@ public class GetCryptoCompareCoinsJob extends BaseJob{
 			BeanUtils.copyProperties(e, coin);
 			coins.add(coin);
 		});
-		coinListRepository.save(coins);*/
+		coinListRepository.save(coins);
 	}
 
 }
