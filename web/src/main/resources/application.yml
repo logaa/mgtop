@@ -46,7 +46,7 @@ spring:
     favicon:
       enabled: false
 server:
-  contextPath: /web
+  #contextPath: /web
   port: 80
 
 ---
@@ -95,5 +95,5 @@ spring:
   thymeleaf.mode: LEGACYHTML5
   profiles: sit
 server:
-  contextPath: /web
+  #contextPath: /web
   port: 80
