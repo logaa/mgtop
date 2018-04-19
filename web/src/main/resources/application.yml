@@ -22,7 +22,8 @@ spring:
       repositories:
         enabled: true
     mongodb:
-      uri: mongodb://127.0.0.1:27017/db_mgtop
+      #uri: mongodb://127.0.0.1:27017/db_mgtop
+      uri: mongodb://dbmgtop:p%40ssw0rd@116.255.159.171:27017/db_mgtop
     #elasticsearch:
     #  cluster-name: logaa-elasticsearch
     #  cluster-nodes: 127.0.0.1:9300
@@ -54,7 +55,7 @@ spring:
   jpa:
     hibernate.ddl-auto: update
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
-    show-sql: true
+    show-sql: false
     #hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
     url: jdbc:mysql://116.255.159.171:3306/mgtop?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false

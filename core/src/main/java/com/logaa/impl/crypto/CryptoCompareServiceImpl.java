@@ -11,6 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,6 +40,8 @@ import com.logaa.util.math.BigDecimalUtils;
 @Service
 public class CryptoCompareServiceImpl implements CryptoCompareService {
 
+	Logger logger = LoggerFactory.getLogger(getClass());
+	
 	enum Constant{
 		time, id, change
 	}
@@ -51,25 +55,27 @@ public class CryptoCompareServiceImpl implements CryptoCompareService {
 	public void updateCryptoCompareMarket() {
 		List<CoinList> coins = coinListRepository.findAll();
 		if(coins == null) return;
-		ExecutorService service = Executors.newSingleThreadExecutor();
-		final int limit = 100; // 限制频率100睡眠60s
+		/*ExecutorService service = Executors.newSingleThreadExecutor();
+		final int limit = 100; // 限制频率100
 		AtomicInteger i = new AtomicInteger();
 		while (i.get() < (coins.size()/limit + 1)) {
+			int skip = i.get() * limit;
 			Runnable target = new Runnable() {
 				@Override
 				public void run() {
-					saveCryptoCompareMarket(coins.stream().skip(i.get() * limit).limit(limit).collect(Collectors.toList()));
+					saveCryptoCompareMarket(coins.stream().skip(skip).limit(limit).collect(Collectors.toList()));
 					try {
 						Thread.sleep(60_000); // 睡眠60s
 					} catch (InterruptedException e) {
-						e.printStackTrace();
+						logger.error(e.getMessage(), e);
 					}
 				}
 			};
 			service.execute(target);
 			i.incrementAndGet();
 		}
-		service.shutdown();
+		service.shutdown();*/
+		saveCryptoCompareMarket(coins);
 	}
 
 	private void saveCryptoCompareMarket(List<CoinList> coins) {
