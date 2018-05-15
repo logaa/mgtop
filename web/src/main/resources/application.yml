@@ -22,8 +22,8 @@ spring:
       repositories:
         enabled: true
     mongodb:
-      #uri: mongodb://127.0.0.1:27017/db_mgtop
-      uri: mongodb://dbmgtop:p%40ssw0rd@116.255.159.171:27017/db_mgtop
+      uri: mongodb://127.0.0.1:27017/db_mgtop
+      #uri: mongodb://dbmgtop:p%40ssw0rd@116.255.159.171:27017/db_mgtop
     #elasticsearch:
     #  cluster-name: logaa-elasticsearch
     #  cluster-nodes: 127.0.0.1:9300

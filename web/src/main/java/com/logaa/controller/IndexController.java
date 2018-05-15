@@ -5,8 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.logaa.helper.SpringHelper;
-import com.logaa.service.crypto.CryptoCompareService;
+import com.logaa.service.gitee.GiteeService;
 
 
 @Controller
@@ -22,12 +21,12 @@ public class IndexController {
 		return "index/index_v0";
 	}
 	
-	@Autowired CryptoCompareService cryptoCompareService;
+	@Autowired GiteeService giteeService;
 	
-	@GetMapping(value = "/market")
+	@GetMapping(value = "/gitee")
 	@ResponseBody
-	public String market(){
-		cryptoCompareService.updateCryptoCompareMarket();
-		return "imarket";
+	public String gitee(){
+		giteeService.getProject();
+		return "gitee";
 	}
 }

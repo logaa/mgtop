@@ -31,8 +31,8 @@ import com.logaa.domain.po.cryptocompare.CryptoModel;
 import com.logaa.domain.rdb.crypto.CoinChangeRank;
 import com.logaa.domain.rdb.crypto.CoinList;
 import com.logaa.helper.CryptoCompareHelper;
-import com.logaa.repository.rdb.CoinChangeRankRepository;
-import com.logaa.repository.rdb.CoinListRepository;
+import com.logaa.repository.rdb.crypto.CoinChangeRankRepository;
+import com.logaa.repository.rdb.crypto.CoinListRepository;
 import com.logaa.service.crypto.CryptoCompareService;
 import com.logaa.util.date.TimestampUtils;
 import com.logaa.util.math.BigDecimalUtils;
@@ -55,26 +55,6 @@ public class CryptoCompareServiceImpl implements CryptoCompareService {
 	public void updateCryptoCompareMarket() {
 		List<CoinList> coins = coinListRepository.findAll();
 		if(coins == null) return;
-		/*ExecutorService service = Executors.newSingleThreadExecutor();
-		final int limit = 100; // 限制频率100
-		AtomicInteger i = new AtomicInteger();
-		while (i.get() < (coins.size()/limit + 1)) {
-			int skip = i.get() * limit;
-			Runnable target = new Runnable() {
-				@Override
-				public void run() {
-					saveCryptoCompareMarket(coins.stream().skip(skip).limit(limit).collect(Collectors.toList()));
-					try {
-						Thread.sleep(60_000); // 睡眠60s
-					} catch (InterruptedException e) {
-						logger.error(e.getMessage(), e);
-					}
-				}
-			};
-			service.execute(target);
-			i.incrementAndGet();
-		}
-		service.shutdown();*/
 		saveCryptoCompareMarket(coins);
 	}
 

@@ -12,7 +12,7 @@ import com.logaa.domain.rdb.crypto.CoinList;
 import com.logaa.helper.CryptoCompareHelper;
 import com.logaa.helper.SpringHelper;
 import com.logaa.quartz.BaseJob;
-import com.logaa.repository.rdb.CoinListRepository;
+import com.logaa.repository.rdb.crypto.CoinListRepository;
 
 @Component
 public class GetCryptoCompareCoinsJob extends BaseJob{

@@ -1,4 +1,4 @@
-package com.logaa.repository.rdb;
+package com.logaa.repository.rdb.job;
 
 import java.util.List;
 

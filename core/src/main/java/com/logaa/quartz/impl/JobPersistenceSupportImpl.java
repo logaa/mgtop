@@ -13,7 +13,7 @@ import com.logaa.helper.SpringHelper;
 import com.logaa.quartz.JobPersistenceSupport;
 import com.logaa.quartz.entity.IJobDefPo;
 import com.logaa.quartz.enumer.JobEnum;
-import com.logaa.repository.rdb.JobDefRepository;
+import com.logaa.repository.rdb.job.JobDefRepository;
 import com.logaa.util.date.TimestampUtils;
 
 @Service(value = "jobPersistenceSupport")
