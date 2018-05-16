@@ -20,6 +20,8 @@ public class Summary {
 	
 	private String title;
 	
+	private String name;
+	
 	private String href;
 	
 	@Column(columnDefinition="MEDIUMTEXT")
@@ -29,7 +31,7 @@ public class Summary {
 		super();
 	}
 
-	public Summary(Long id, Long postsId, String title, String href, String text) {
+	public Summary(Long id, Long postsId, String title, String name, String href, String text) {
 		super();
 		this.id = id;
 		this.postsId = postsId;
@@ -76,6 +78,14 @@ public class Summary {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	
