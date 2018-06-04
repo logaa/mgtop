@@ -5,6 +5,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.logaa.context.CommonIntercepter;
+
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter{
 
@@ -16,6 +18,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		//registry.addInterceptor(new LongInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(new CommonIntercepter()).addPathPatterns("/**");
 	}
 }

@@ -28,10 +28,21 @@ public class TimestampUtils {
      * @param format String的格式
      * @return java.lang.String
      */
-    public static String timestamp2String(Timestamp value,String format){
+    public static String timestamp2String(Timestamp value, String format){
     	if(null == value) return "";
     	SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
     	return sdf.format(value);
+    }
+    
+    /**
+     * 将Timestamp 转换为String类型，format为null则使用默认格式 yyyy-MM-dd HH:mm:ss
+     * @param value 待转换的Timestamp
+     * @param format String的格式
+     * @return java.lang.String
+     */
+    public static String timestamp2String(long value, String format){
+    	SimpleDateFormat sdf = DateFormatUtils.getFormat(format);
+    	return sdf.format(new Timestamp(value));
     }
 
     /**

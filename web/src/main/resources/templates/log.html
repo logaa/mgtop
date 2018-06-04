@@ -1,0 +1,176 @@
+<!-- head -->
+<div th:include="@{include/head}"></div>
+<style>
+.log-json-content{
+	
+}
+.none-content{
+	display:none;
+}
+</style>
+<body data-type="index">
+<form class="log-filter-form am-form am-form-inline">
+  <fieldset>
+  	 <div class="am-form-group">
+	      <select id="selType" style="width:80px;">
+	        <option value="table">Table</option>
+	        <option value="json">Json</option>
+	      </select>
+          <span class="am-form-caret"></span>
+     </div>
+	 <div class="am-form-group">
+	      <select id="selSize" style="width:80px;">
+	        <option value="20">20</option>
+	        <option value="50">50</option>
+	        <option value="100">100</option>
+	        <option value="200">200</option>
+	      </select>
+          <span class="am-form-caret"></span>
+     </div>
+     <div class="am-input-group">
+		  <span class="am-input-group-label">Page</span>
+		  <input id="txtPage" type="number" class="am-form-field" style="width:80px;" placeholder="0">
+		  <span class="am-input-group-label">/<span id= "txtTotalPages">1</span></span>
+	 </div>
+	 <div class="am-form-group">
+	  	  <span id="page-left" data-value="" class="am-badge am-badge-primary am-radius am-icon-angle-left am-text-lg"> </span>
+          <span id="page-right" data-value="" class="am-badge am-badge-primary am-radius am-icon-angle-right am-text-lg"> </span>
+          <span id="refresh" class="am-badge am-badge-primary am-radius am-icon-refresh am-text-lg"> </span>
+     </div>
+	</fieldset>
+</form>
+<div class="am-g am-u-md-12 am-scrollable-horizontal log-table-content">
+	<table id= "logs-table" class="am-table am-table-striped am-text-nowrap">
+	    <thead>
+	        <tr>
+	        	<th>时间</th>
+	            <th>IP</th>
+	            <th>URL</th>
+	            <th>类型</th>
+	            <th>方法</th>
+	            <th>参数</th>
+	            <th>响应</th>
+	            <th>异常</th>
+	            <th>返回</th>
+	        </tr>
+	    </thead>
+	    <tbody></tbody>
+	</table>
+</div>
+<div class="am-g am-u-md-12 log-json-content none-content">
+	<pre class="json-content"></pre>
+</div>
+<script th:src="${#httpServletRequest.getContextPath() + '/amazeui/js/jquery.min.js'}"></script>
+<script th:src="${#httpServletRequest.getContextPath() + '/amazeui/js/amazeui.min.js'}"></script>
+<script type="text/javascript">
+$(function() {
+  find(0, 20);
+  $('.log-filter-form').sticky({animation: 'slide-top', top: 0});
+});
+
+function find(page, size){
+	$.ajax({
+		url: basePath + '/request-log/find/' + size + "/" + page,
+		success:function(result){
+			var re = JSON.parse(result);
+			console.log(re);
+			if(re.code == 200){
+				var totalPages = re.data.totalPages;
+				var page = re.data.page;
+				var pageleft = page - 1;
+				var pageright = page + 1;
+				$('#txtTotalPages').text(totalPages);
+				$('#txtPage').val(page + 1);
+				$('#page-left').addClass('am-badge-primary');
+				$('#page-right').addClass('am-badge-primary');
+				if(page == 0){
+					$('#page-left').toggleClass('am-badge-primary');
+					pageleft = 0;
+				}
+				if(page + 1 == totalPages){
+					$('#page-right').toggleClass('am-badge-primary');
+					pageright = page;
+				}
+				$('#page-left').data('value', pageleft);
+				$('#page-right').data('value', pageright);
+				$('.json-content').html(syntaxHighlight(re.data.content));
+				var html = '';
+				$.each(re.data.content, function(n, x){
+					var ip = typeof(x.ip) == 'undefined' ? '' : x.ip;
+					var url = typeof(x.url) == 'undefined' ? '' : x.url;
+					var httpMethod = typeof(x.httpMethod) == 'undefined' ? '' : x.httpMethod;
+					var classMethod = typeof(x.classMethod) == 'undefined' ? '' : x.classMethod;
+					var args = typeof(x.args) == 'undefined' ? '' : x.args;
+					var timeDis = typeof(x.timeDis) == 'undefined' ? '' : x.timeDis;
+					var proceedTime = typeof(x.proceedTime) == 'undefined' ? '' : x.proceedTime;
+					var returning = typeof(x.returning) == 'undefined' ? '' : x.returning;
+					var exception = typeof(x.exception) == 'undefined' ? '' : x.exception;
+					html += 
+						'<tr>'+
+						'<td>'+timeDis+'</td>'+
+						'<td>'+ip+'</td>'+
+						'<td>'+url+'</td>'+
+						'<td>'+httpMethod+'</td>'+
+						'<td>'+classMethod+'</td>'+
+						'<td>'+args+'</td>'+
+						'<td>'+proceedTime+'</td>'+
+						'<td>'+exception+'</td>'+
+						'<td>'+returning+'</td>'+
+						'</tr>';
+				});
+				$('#logs-table tbody').empty().append(html);
+			}else{
+				alert(re.msg);
+			}
+		}
+	});
+}
+
+$('#selType').change(function(){
+	$('.log-table-content').toggleClass('none-content');
+	$('.log-json-content').toggleClass('none-content');
+});
+
+$('#selSize').change(function(){
+	find(0, this.value);
+});
+
+$('#page-left').click(function(){
+	find($(this).data('value'), $('#selSize').val());
+});
+
+$('#page-right').click(function(){
+	find($(this).data('value'), $('#selSize').val());
+});
+
+$('#refresh').click(function(){
+	var page = $('#txtPage').val();
+	find(Number(page) - 1, $('#selSize').val());
+});
+
+function syntaxHighlight(json) {
+	if (typeof json != 'string') {
+		json = JSON.stringify(json, undefined, 2);
+	}
+	json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
+	return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+	function(match) {
+		var cls = 'number';
+		if (/^"/.test(match)) {
+			if (/:$/.test(match)) {
+				cls = 'key';
+			} else {
+				cls = 'string';
+			}
+		} else if (/true|false/.test(match)) {
+			cls = 'boolean';
+		} else if (/null/.test(match)) {
+			cls = 'null';
+		}
+		return '<span class="' + cls + '">' + match
+				+ '</span>';
+	});
+}
+</script>
+</body>
+</html>

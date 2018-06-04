@@ -45,7 +45,7 @@ public class Love2ioRest {
 
 	@RequestMapping("/archives")
 	public String archives(){
-		ArchivesView view = love2ioService.archives();
+		//ArchivesView view = love2ioService.archives();
 		return "archives";
 	}
 }

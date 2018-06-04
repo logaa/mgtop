@@ -4,25 +4,26 @@ import org.springframework.data.domain.Page;
 
 public class BasePageView {
 	
-	long totalElement = 0;		// 总数据大小
+	long totalElements = 0;		// 总数据大小
 	int page = 0;				// 当前页面
 	int numberOfElements = 0;	// 返回大小
 	int size = 10;				// 页面大小
 	int totalPages = 0;  		// 总页数
 	
 	public void setPage(Page page){
-		this.totalElement = page.getTotalPages();
+		this.totalElements = page.getTotalElements();
 		this.page = page.getNumber();
 		this.numberOfElements = page.getNumberOfElements();
 		this.size = page.getSize();
 		this.totalPages = page.getTotalPages();
 	}
 
-	public long getTotalElement() {
-		return totalElement;
+	
+	public long getTotalElements() {
+		return totalElements;
 	}
-	public void setTotalElement(long totalElement) {
-		this.totalElement = totalElement;
+	public void setTotalElements(long totalElements) {
+		this.totalElements = totalElements;
 	}
 	public int getPage() {
 		return page;

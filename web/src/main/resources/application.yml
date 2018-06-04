@@ -2,7 +2,7 @@ spring:
   jpa:
     hibernate.ddl-auto: update
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
-    show-sql: true
+    show-sql: false
     #hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
     url: jdbc:mysql://localhost:3306/mgtop?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false
@@ -24,12 +24,15 @@ spring:
     mongodb:
       uri: mongodb://127.0.0.1:27017/db_mgtop
       #uri: mongodb://dbmgtop:p%40ssw0rd@116.255.159.171:27017/db_mgtop
-    #elasticsearch:
-    #  cluster-name: logaa-elasticsearch
-    #  cluster-nodes: 127.0.0.1:9300
-    #  local: false
-    #  repositories:
-    #      enable: true
+    elasticsearch:
+      #cluster-name: logaa-elasticsearch
+      #cluster-nodes: 127.0.0.1:9300
+      local: false
+      repositories:
+          enable: true
+      properties:
+          path.data: /es/data
+          path.logs: /es/logs
   redis:
     database: 1
     host: localhost
@@ -76,12 +79,15 @@ spring:
         enabled: true
     mongodb:
       uri: mongodb://dbmgtop:p%40ssw0rd@116.255.159.171:27017/db_mgtop 
-    #elasticsearch:
-    #  cluster-name: logaa-elasticsearch
-    #  cluster-nodes: 127.0.0.1:9300
-    #  local: false
-    #  repositories:
-    #      enable: true
+    elasticsearch:
+      #cluster-name: logaa-elasticsearch
+      #cluster-nodes: 127.0.0.1:9300
+      local: false
+      repositories:
+          enable: true
+      properties:
+          path.data: /es/data
+          path.logs: /es/logs
   redis:
     database: 1
     host: 116.255.159.171
